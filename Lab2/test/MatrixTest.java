@@ -206,6 +206,12 @@ public class MatrixTest {
 
     @Test
     public void random() {
+        int rows = (int)(Math.random() * 10);
+        int cols = (int)(Math.random() * 10);
+        Matrix matrix = new Matrix(rows, cols);
+        //sprawdzenie rozmiarow
+        assertEquals(rows,matrix.GetRows());
+        assertEquals(cols,matrix.GetCols());
     }
 
     @Test

@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         Matrix matrix1 = new Matrix(2,2); // zwykly konstruktor
-        Matrix matrix2 = new Matrix(new double[][]{{1,2,3,4},{5,6},{7,8},{9}}); // konstruktor z tablicy
+        Matrix matrix2 = new Matrix(new double[][]{{1,2,3,4},{5,6},{7,8}}); // konstruktor z tablicy
 
         /*matrix1.Set(0,0, 1);
         matrix1.Set(0,1,2);
