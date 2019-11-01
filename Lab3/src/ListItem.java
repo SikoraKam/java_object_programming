@@ -8,7 +8,7 @@ public class ListItem {
     }
 
     void writeHTML(PrintStream out){
-        out.printf("<li>%s</li>", content);
+        out.printf("<li>%s</li>\n", content);
     }
 
 

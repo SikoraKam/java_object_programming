@@ -7,6 +7,6 @@ public class Photo {
         this.url = url;
     }
     void writeHTML(PrintStream out){
-        out.printf("<img src=\"%s\" alt=\"Smiley face\" height=\"42\" width=\"42\"/>\n",url);
+        out.printf("<img src=\"%s\" alt=\"Smiley face\" height=\"342\" width=\"342\"/>\n",url);
     }
 }

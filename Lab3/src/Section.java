@@ -1,3 +1,4 @@
+
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +7,6 @@ public class Section {
     String title;
     List<Paragraph> paragraphs = new ArrayList<>();
 
-    /*Section(String title){
-        this.title = title;
-    }*/
 
     Section setTitle(String title){
         this.title = title;

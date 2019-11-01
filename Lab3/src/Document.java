@@ -2,8 +2,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class Document {
     String title;
     Photo photo;
@@ -34,13 +32,13 @@ public class Document {
         return this;
     }
     void writeHTML(PrintStream out){
-        out.printf("!DOCTYPE html >\n"  +
-                 "<html lang=\"pl\">\n" +
-                        "<head>\n" +
-                        "<meta charset=\"UTF-8\">\n" +
-                        "<title>CV</title>\n" +
-                        "</head>\n" +
-                        "<body>\n"); //znaczniki
+        out.printf("<!DOCTYPE html >\n"  +
+                "<html lang=\"pl\">\n" +
+                "<head>\n" +
+                "<title>CV</title>\n" +
+                "<meta charset=\"UTF-8\">" +
+                "</head>\n" +
+                "<body style=\"background-color:powderblue;\">\n"); //znaczniki
         out.printf("<h1>%s</h1>\n", title); //tytuł
         photo.writeHTML(out); // obrazek
 
@@ -48,6 +46,6 @@ public class Document {
             i.writeHTML(out);
         }
 
-        out.printf("</body>\n" + "</html>\n");
+        out.printf("</body>" + "</html>\n");
     }
 }
