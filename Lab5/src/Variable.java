@@ -10,6 +10,10 @@ public class Variable extends Node{
         this.value = d;
     }
 
+    double getVariableValue(){
+        return this.value;
+    }
+
     @Override
     double evaluate(){
         return sign*value;

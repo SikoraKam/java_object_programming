@@ -1,3 +1,4 @@
+
 abstract public class Node {
     int sign = 1;
 

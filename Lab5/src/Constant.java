@@ -9,6 +9,10 @@ public class Constant extends Node{
         this.sign = value<0 ? -1 : 1; //if value<0 then sign=-1 else sign=1
         this.value = value<0 ? -value : value;
     }
+    //wlasne
+    double getConstantValue(){
+        return this.value;
+    }
 
     @Override
     double evaluate(){
@@ -17,10 +21,13 @@ public class Constant extends Node{
 
     @Override
     public String toString(){
-        String sgn = sign<0 ? "-" : "";
+        String sgn = sign<0 ? "(-" : "";
         // Stosując DecimalFormat pozbędziemy się niepotrzebnych zer na końcu wartości double.
         // Inaczej mozna zaastosowac return sgn+Double.toString(value);
         DecimalFormat format = new DecimalFormat("0.#####",new DecimalFormatSymbols(Locale.US));
-        return sgn + format.format(value);
+        if(sign<0)
+            return sgn + format.format(value) + ")";
+        else
+            return sgn + format.format(value);
     }
 }

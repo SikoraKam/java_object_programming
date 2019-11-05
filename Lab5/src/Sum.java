@@ -24,6 +24,13 @@ public class Sum extends Node {
     Sum add(double c, Node n){
         Node mul = new Prod(c,n);
         args.add(mul);
+        return this;
+    }
+    //wlasne
+    Sum add(Node n1, Node n2){
+        Node mul = new Prod(n1,n2);
+        args.add(mul);
+        return this;
     }
 
     @Override
@@ -41,11 +48,21 @@ public class Sum extends Node {
     }
 
     @Override
-    public String toString(){
+    public String toString(){  //dokonczyc
         StringBuilder b = new StringBuilder();
         if(sign<0)
             b.append("-(");
-
-
+        for(Node element : args) {
+            b.append(element.toString());
+            if(element != args.get(args.size()-1)) {
+                if (element.sign < 0)
+                    b.append(" - ");
+                else if (element.sign > 0)
+                    b.append(" + ");
+            }
+        }
+        if(sign<0)
+            b.append(")");
+        return b.toString();
     }
 }

@@ -1,3 +1,7 @@
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 public class Power extends Node{
     double p; //wykładnik
     Node arg; // aby móc wywołać np Power(Sum(x,2),-2)
@@ -20,6 +24,7 @@ public class Power extends Node{
     @Override
     public String toString(){
         StringBuilder b = new StringBuilder();
+        DecimalFormat format = new DecimalFormat("0.#####",new DecimalFormatSymbols(Locale.US));
         if(sign < 0)
             b.append("-");
         int argSign = getSign();
@@ -37,7 +42,7 @@ public class Power extends Node{
             b.append(")");
 
         b.append("^");
-        b.append(p);
+        b.append(format.format(p));
         return b.toString();
     }
 }
