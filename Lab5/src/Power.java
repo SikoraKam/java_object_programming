@@ -45,4 +45,20 @@ public class Power extends Node{
         b.append(format.format(p));
         return b.toString();
     }
+
+    @Override
+    Node diff(Variable var){
+        Prod r = new Prod(sign*p, new Power(arg, p-1 ));
+        r.mul(arg.diff(var));
+        return r;
+    }
+
+    @Override
+    boolean isZero(){
+        return arg.isZero();
+    }
+
+
+
+
 }

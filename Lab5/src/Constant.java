@@ -30,4 +30,12 @@ public class Constant extends Node{
         else
             return sgn + format.format(value);
     }
+
+    @Override
+    Node diff(Variable var){
+        return new Constant(0);
+    }
+    boolean isZero(){
+        return true;
+    }
 }
