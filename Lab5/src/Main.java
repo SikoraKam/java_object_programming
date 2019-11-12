@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class Main {
@@ -43,6 +45,7 @@ public class Main {
         System.out.println(circle.toString());
 
         //drugi sposob stworzenia koła, tak aby móc się dostać do value w Constant i Variable
+        //potrzebne do uniwersalengo znjadywania 100 punktow lezacych wew okregu
         Constant a = new Constant(16);
         Constant xC = new Constant(8);
         Constant yC = new Constant(4);
@@ -64,12 +67,51 @@ public class Main {
         //Znajdź i wypisz 100 punktów leżących wewnątrz okręgu
 
         //(x- x1)^2 + (y-y1)^2 = r^2
+        //wspolrzedne srodka
         double x1 = -(xC.getConstantValue()/2);
         double y1 = -(yC.getConstantValue()/2);
-
+        //promien
         double r = Math.sqrt(Math.pow(x1,2) + Math.pow(y1,2) - a.getConstantValue());
 
+        //losowanie punktow wewnatz kola i zapisywanie do listy
+        List <Double> xArray = new ArrayList<Double>();
+        List <Double> yArray = new ArrayList<Double>();
 
+        int maxX = (int)(x1+r);
+        int minX = (int)(x1-r);
+        int maxY = (int)(y1+r);
+        int minY = (int)(y1-r);
+        double rangeX = maxX - minX;
+        double rangeY = maxY - minY ;
+        for(int i=0; i <= 100; i++){
+            double xr = Math.random() * rangeX + minX;
+            double yr = Math.random() * rangeY + minY;
+            //warunek odleglosci punktu od srodka
+            while(Math.sqrt(Math.pow((x1-xr),2) + Math.pow((y1-yr),2)) > r)
+                yr = Math.random() * rangeY + minY;
+            xArray.add(xr);
+            yArray.add(yr);
+        }
+
+        //sprawdzenie czy naleza do wewnatrz kola
+        boolean flag = true;
+        for(int i=0; i<xArray.size(); i++){
+            x.setValue(xArray.get(i));
+            y.setValue(yArray.get(i));
+            fv = circle2.evaluate();
+            if(fv>0){
+                flag = false;
+                throw new RuntimeException(String.format("Punkt (%f ; %f) nie nalezy do wnetrza kola", xArray.get(i),yArray.get(i)));
+            }
+            if (flag == false)
+                System.out.println("Coś nie tak");
+        }
+
+        //wyswietlenie tych punktow - opcjonalne
+        System.out.println("\n100 pkt wewnatrz koła");
+        for(int i=0; i<xArray.size(); i++){
+            System.out.printf("%f - %f \n",xArray.get(i),yArray.get(i));
+        }
     }
 
     public static void main(String [] args){
@@ -78,6 +120,11 @@ public class Main {
         System.out.println();
         buildAndEvaluate();
         System.out.println();
-        defineCircle();
+        try {
+            defineCircle();
+        }catch (RuntimeException e){
+            return;
+        }
+
     }
 }

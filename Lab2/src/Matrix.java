@@ -228,4 +228,39 @@ public class Matrix {
         }
         return m;
     }
+
+    Matrix getColumn(int i){
+        if(i >= this.GetCols() || i<0){
+            throw new IllegalArgumentException("Error");
+        }
+
+        Matrix result = new Matrix(this.GetRows(),1);
+        for (int j=0; j<this.GetRows(); j++){
+            result.Set(j,0, Get(j,i));
+        }
+        return result;
+    }
+
+    Matrix sumRows(){
+        Matrix result = new Matrix(1,this.GetCols());
+        for(int c=0; c<this.GetCols(); c++){
+            double value = 0;
+            for(int r=0; r<this.GetRows(); r++){
+                value += this.Get(r,c);
+            }
+            result.Set(0,c,value);
+        }
+        return result;
+    }
+
+    //michał mówi że to brzydkie podejście z bezppośrednimi zmiennymi
+    Matrix sumRows1(){
+        Matrix result = new Matrix(1,this.GetCols());
+        for(int i=0; i<this.GetRows(); i++){
+            for(int j=0; j<this.GetCols(); j++){
+                result.data[j]=result.data[j] + this.data[i*cols + j];
+            }
+        }
+        return result;
+    }
 }

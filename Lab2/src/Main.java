@@ -48,7 +48,13 @@ public class Main {
 
         Matrix newMatrix = matrix3.add(10);
         PrintMatrix(matrix3.AsArray());*/
-        System.out.println(matrix2.toString());
+        //System.out.println(matrix2.toString());
+
+        Matrix m = new Matrix(new double[][] {{1,2,3},{4,5,6},{7,8,9}});
+        Matrix col = m.getColumn(0);
+        Matrix row = m.sumRows1();
+        System.out.println(row.toString());
+        System.out.println(col.toString());
 
     }
 }
