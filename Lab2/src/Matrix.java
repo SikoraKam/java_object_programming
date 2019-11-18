@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 import static java.lang.Math.pow;
@@ -143,6 +144,8 @@ public class Matrix {
         Matrix result = new Matrix(rows, cols);
 
         for (int i = 0; i < cols * rows; i++) {
+            if(m.data[i] == 0 )
+                throw new RuntimeException("nie wolno dzielic przez 0");
             result.data[i] = data[i] / m.data[i];
         }
         return result;
@@ -153,6 +156,7 @@ public class Matrix {
         for (int i = 0; i < rows * cols; i++)
             matrix.data[i] = this.data[i] + w;
         return matrix;
+
     }
 
     Matrix sub(double w) {
@@ -196,11 +200,11 @@ public class Matrix {
         return result;
     }
 
-    //-------------------------------- Frobenius
+
     double Frobenius(){
         double sum = 0;
         for (int i=0; i<rows * cols; i++){
-                sum += pow(this.data[i],2);
+            sum += pow(this.data[i],2);
         }
         return sum;
     }
@@ -229,38 +233,40 @@ public class Matrix {
         return m;
     }
 
-    Matrix getColumn(int i){
-        if(i >= this.GetCols() || i<0){
-            throw new IllegalArgumentException("Error");
-        }
 
-        Matrix result = new Matrix(this.GetRows(),1);
-        for (int j=0; j<this.GetRows(); j++){
-            result.Set(j,0, Get(j,i));
-        }
-        return result;
-    }
-
-    Matrix sumRows(){
-        Matrix result = new Matrix(1,this.GetCols());
-        for(int c=0; c<this.GetCols(); c++){
-            double value = 0;
-            for(int r=0; r<this.GetRows(); r++){
-                value += this.Get(r,c);
+    //kartkówka
+    Matrix mean(int axis) {
+        if (axis == 0) {
+            Matrix result = new Matrix(1, this.GetCols());
+            for (int c = 0; c < this.GetCols(); c++) {
+                double value = 0;
+                for (int r = 0; r < this.GetRows(); r++) {
+                    value += this.Get(r, c);
+                }
+                result.Set(0, c, (value / this.GetRows()) );
             }
-            result.Set(0,c,value);
+            return result;
         }
-        return result;
-    }
 
-    //michał mówi że to brzydkie podejście z bezppośrednimi zmiennymi
-    Matrix sumRows1(){
-        Matrix result = new Matrix(1,this.GetCols());
-        for(int i=0; i<this.GetRows(); i++){
-            for(int j=0; j<this.GetCols(); j++){
-                result.data[j]=result.data[j] + this.data[i*cols + j];
+        //opcjonalne
+        else if(axis==1) {
+            return this;
+/*
+            Matrix result = new Matrix(this.GetRows(),1);
+            for (int c = 0; c < this.GetRows(); c++) {
+                double value = 0;
+                for (int r = 0; r < this.GetCols(); r++) {
+                    value += this.Get(r, c);
+                }
+                result.Set(0, c, (value / this.GetCols()));
             }
+            return result;
+        }*/
+
         }
-        return result;
+        else
+            throw new RuntimeException("zly paramatr");
+
+
     }
 }
