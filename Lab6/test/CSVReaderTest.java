@@ -1,5 +1,4 @@
 
-
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -63,9 +62,49 @@ public class CSVReaderTest {
         int id = reader2.getInt(0);
         assertEquals(1,id);
 
+    }
+    @Test
+    public void missing_values() throws IOException {
+        System.out.print("\nMissing values \n");
 
+        CSVReader reader = new CSVReader("missing-values.csv", ";", true, "Windows-1250");
+        System.out.println();
+
+        for (int i = 0; i < reader.columnLabels.size(); i++) {
+            System.out.print(reader.columnLabels.get(i) + " ");
+        }
+        System.out.println();
+        while (reader.next()) {
+            for (int i = 0; i < reader.columnLabels.size(); i++) {
+                System.out.print(reader.get(i) + ";");
+            }
+            System.out.println();
+        }
+
+        CSVReader reader2 = new CSVReader("missing-values.csv", ";", true, "Windows-1250");
+
+        reader2.next();
+        reader2.next();
+        long result = reader2.getLong("population");
+        assertEquals(-1,result);
+        String result2 = reader2.get("population");
+        assertEquals("",result2);
 
     }
 
+    @Test
+    public void missing_columns() throws IOException {
+        System.out.print("\nMissing columns \n");
+        CSVReader reader = new CSVReader("with-header.csv", ";", true, "Windows-1250");
 
+        reader.next();
+        System.out.print(reader.get("helo"));
+        String result = reader.get("nazwa_ktorej_nie_ma");
+        assertEquals("",result);
+
+        long result2 = reader.getLong(-1);
+        assertEquals(-1,result2);
+
+
+    }
 }
