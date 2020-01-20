@@ -15,7 +15,10 @@ public class Main {
         //StockItemList keybordList = stockItemList.selectByName("keyboard");
         //keybordList.list(System.out);
         //d)
-        StockItemList carsList = stockItemList.filter(a->a.categories[2].equals("Samochody na akumulator"));
-        carsList.list(System.out);
+        //nalzey dac albo contains albo equals z spcją przed nazwą
+        StockItemList carsList = stockItemList.filter(a->a.categories.length == 3 && a.categories[2].equals(" Samochody na akumulator"));
+       // carsList.list(System.out);
+        double avgWeight = carsList.items.stream().mapToDouble(item->item.weight).average().orElse(0);
+        System.out.println(avgWeight);
     }
 }
